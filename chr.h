@@ -27,10 +27,13 @@ wchar_t * chr_to_wchr(const char * chr);
 char * wchr_to_chr(const wchar_t * wchr);
 
 wchar_t * chr_to_wchr(const char * chr) {
-	size_t ch_dsize = mbstowcs(NULL, s, 0) + 1; wchar_t * ch_dest = malloc(ch_dsize);
-	wmemset (ch_dest, 0, ch_dsize);  mbstowcs (ch_dest, s, ch_dsize); return ch_dest;
+	char * curLocale = setlocale(LC_ALL, ""); size_t ch_dsize = mbstowcs(NULL, chr, 0) + 1;
+	wchar_t * ch_dest = malloc(ch_dsize); wmemset (ch_dest, 0, ch_dsize); mbstowcs (ch_dest, chr, ch_dsize);
+	setlocale(  0,   curLocale  ); return ch_dest;
 }
+
 char * wchr_to_chr(const wchar_t * wchr) {
-	size_t ch_dsize = wcstombs(NULL, ws, 0) + 1;  char * ch_dest = malloc(ch_dsize);
-	memset (ch_dest, 0, ch_dsize); wcstombs (ch_dest, ws, ch_dsize); return ch_dest;
+	char * curLocale = setlocale(LC_ALL, ""); size_t ch_dsize = wcstombs(NULL, wchr, 0) + 1;
+	char * ch_dest = malloc(ch_dsize); memset (ch_dest, 0, ch_dsize); wcstombs (ch_dest, wchr, ch_dsize);
+	setlocale(  0,   curLocale  ); return ch_dest;
 }
