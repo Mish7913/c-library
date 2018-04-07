@@ -37,3 +37,4 @@ char * wchr_to_chr(const wchar_t * wchr) {
 	char * ch_dest = malloc(ch_dsize); memset (ch_dest, 0, ch_dsize); wcstombs (ch_dest, wchr, ch_dsize);
 	setlocale(  0,   curLocale  ); return ch_dest;
 }
+
